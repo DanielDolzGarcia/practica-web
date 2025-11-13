@@ -1,23 +1,21 @@
-import logo from './logo.svg';
 import './App.css';
+import { useState } from 'react';
+import SearchBar from './components/SearchBar';
 
 function App() {
+  const [query, setQuery] = useState('');
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+      <header className="AppHeader">
+        <h1>TVMaze Finder</h1>
       </header>
+      <main className="AppMain">
+        <SearchBar onSearch={(q) => setQuery(q)} />
+        <p className="SearchInfo">
+          {query ? `Buscando: ${query}` : 'Introduce un término y pulsa Buscar'}
+        </p>
+      </main>
     </div>
   );
 }
