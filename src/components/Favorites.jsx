@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import FavoriteButton from './FavoriteButton';
 import { getShowById } from '../services/tvmaze';
 
-export default function Favorites({ favorites, onToggleFavorite }) {
+export default function Favorites({ favorites, onToggleFavorite, onSelect }) {
   const [items, setItems] = useState([]);
   const [loading, setLoading] = useState(false);
 
@@ -33,14 +33,29 @@ export default function Favorites({ favorites, onToggleFavorite }) {
       {!loading && items.length === 0 ? (
         <p className="FavoritesEmpty">No hay favoritos</p>
       ) : (
-        <ul className="FavoritesList">
+        <ul className="ShowGrid">
           {items.map((s) => (
-            <li key={s.id} className="FavoritesItem">
-              <span className="FavoritesName">{s.name}</span>
-              <FavoriteButton
-                isFavorite={true}
-                onToggle={() => onToggleFavorite(s.id)}
-              />
+            <li
+              key={s.id}
+              className="ShowCard"
+              onClick={() => onSelect && onSelect(s)}
+              tabIndex={0}
+            >
+              {s.image?.medium ? (
+                <img className="ShowThumb" src={s.image.medium} alt={s.name} />
+              ) : (
+                <div className="ShowThumbPlaceholder">Sin imagen</div>
+              )}
+              <h3 className="ShowTitle">{s.name}</h3>
+              <div className="ShowActions">
+                <FavoriteButton
+                  isFavorite={true}
+                  onToggle={(e) => {
+                    e.stopPropagation();
+                    onToggleFavorite && onToggleFavorite(s.id);
+                  }}
+                />
+              </div>
             </li>
           ))}
         </ul>

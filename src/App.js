@@ -63,7 +63,7 @@ function App() {
             setLoading(false);
           }}
         >
-          TVMaze Finder
+          TVMaze
         </button>
       </header>
       <main className="AppMain">
@@ -105,7 +105,11 @@ function App() {
             onToggleFavorite={toggleFavorite}
           />
         )}
-        <Favorites favorites={favorites} onToggleFavorite={toggleFavorite} />
+        <Favorites
+          favorites={favorites}
+          onToggleFavorite={toggleFavorite}
+          onSelect={(s) => setSelected(s)}
+        />
         <Modal
           isOpen={!!selected}
           onClose={() => setSelected(null)}
