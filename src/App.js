@@ -6,6 +6,7 @@ import ShowList from './components/ShowList';
 import Modal from './components/Modal';
 import FavoriteButton from './components/FavoriteButton';
 import useLocalStorage from './hooks/useLocalStorage';
+import Favorites from './components/Favorites';
 
 function App() {
   const [query, setQuery] = useState('');
@@ -91,6 +92,11 @@ function App() {
             onToggleFavorite={toggleFavorite}
           />
         )}
+        <Favorites
+          favorites={favorites}
+          results={results}
+          onToggleFavorite={toggleFavorite}
+        />
         <Modal
           isOpen={!!selected}
           onClose={() => setSelected(null)}
@@ -99,32 +105,36 @@ function App() {
           {detailLoading && <p>Cargando detalle…</p>}
           {detailError && <p>{detailError}</p>}
           {!detailLoading && !detailError && selected && (
-            <div>
-              {(detail?.image?.original || selected.image?.original) ? (
-                <img
-                  src={detail?.image?.original || selected.image?.original}
-                  alt={selected.name}
-                  style={{ maxWidth: '100%', borderRadius: 8 }}
+            <div className="ModalLayout">
+              <div>
+                {(detail?.image?.original || selected.image?.original) ? (
+                  <img
+                    className="ModalImage"
+                    src={detail?.image?.original || selected.image?.original}
+                    alt={selected.name}
+                  />
+                ) : null}
+              </div>
+              <div>
+                {(detail?.genres?.length || selected.genres?.length) ? (
+                  <p>Géneros: {(detail?.genres || selected.genres).join(', ')}</p>
+                ) : null}
+                {(detail?.premiered || detail?.status || detail?.rating?.average) && (
+                  <p>
+                    {detail?.premiered ? `Fecha: ${detail.premiered} ` : ''}
+                    {detail?.status ? `• Estado: ${detail.status} ` : ''}
+                    {detail?.rating?.average ? `• Rating: ${detail.rating.average}` : ''}
+                  </p>
+                )}
+                {(() => {
+                  const txt = (detail?.summary || selected?.summary || '').replace(/<[^>]+>/g, '');
+                  return txt ? <p>{txt}</p> : null;
+                })()}
+                <FavoriteButton
+                  isFavorite={favorites.includes(selected.id)}
+                  onToggle={() => toggleFavorite(selected.id)}
                 />
-              ) : null}
-              {(detail?.genres?.length || selected.genres?.length) ? (
-                <p>Géneros: {(detail?.genres || selected.genres).join(', ')}</p>
-              ) : null}
-              {(detail?.premiered || detail?.status || detail?.rating?.average) && (
-                <p>
-                  {detail?.premiered ? `Fecha: ${detail.premiered} ` : ''}
-                  {detail?.status ? `• Estado: ${detail.status} ` : ''}
-                  {detail?.rating?.average ? `• Rating: ${detail.rating.average}` : ''}
-                </p>
-              )}
-              {(() => {
-                const txt = (detail?.summary || selected?.summary || '').replace(/<[^>]+>/g, '');
-                return txt ? <p>{txt}</p> : null;
-              })()}
-              <FavoriteButton
-                isFavorite={favorites.includes(selected.id)}
-                onToggle={() => toggleFavorite(selected.id)}
-              />
+              </div>
             </div>
           )}
         </Modal>
