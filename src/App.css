@@ -5,14 +5,24 @@
 }
 
 .AppHeader {
-  background-color: #20232a;
+  background: linear-gradient(90deg, #111827, #1f2937);
   color: #ffffff;
   padding: 16px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.25);
 }
 
-.AppHeader h1 {
-  font-size: 20px;
+.Brand {
+  font-size: 22px;
   margin: 0;
+  font-weight: 700;
+  color: #fff;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.Brand:hover {
+  opacity: 0.85;
 }
 
 .AppMain {
@@ -26,18 +36,21 @@
 
 .SearchInput {
   flex: 1;
-  padding: 10px 12px;
-  border: 1px solid #ccc;
-  border-radius: 6px;
+  padding: 12px 14px;
+  border: 1px solid #374151;
+  border-radius: 10px;
+  background: #111827;
+  color: #e5e7eb;
 }
 
 .SearchButton {
-  padding: 10px 16px;
+  padding: 12px 16px;
   border: none;
-  border-radius: 6px;
-  background: #61dafb;
-  color: #000;
+  border-radius: 10px;
+  background: #3b82f6;
+  color: #fff;
   cursor: pointer;
+  font-weight: 600;
 }
 
 .SearchInfo {
@@ -68,10 +81,11 @@
 
 .ShowCard {
   border: 1px solid #e5e5e5;
-  border-radius: 8px;
+  border-radius: 12px;
   overflow: hidden;
   background: #fff;
   cursor: pointer;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
 }
 
 .ShowThumb {
@@ -80,7 +94,7 @@
 }
 
 .ShowThumbPlaceholder {
-  height: 200px;
+  height: 220px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -89,8 +103,9 @@
 }
 
 .ShowTitle {
-  font-size: 14px;
-  margin: 8px 10px 10px;
+  font-size: 15px;
+  margin: 10px 12px 12px;
+  font-weight: 600;
 }
 
 .SelectedInfo {
@@ -105,12 +120,14 @@
   border: none;
   background: #eee;
   padding: 8px 12px;
-  border-radius: 6px;
+  border-radius: 8px;
   cursor: pointer;
+  font-weight: 600;
 }
 
 .FavButton.isFav {
-  background: #ffd54f;
+  background: #f59e0b;
+  color: #1f2937;
 }
 
 .Favorites {
@@ -212,4 +229,14 @@
   padding: 8px 12px;
   border-radius: 6px;
   cursor: pointer;
+}
+.App {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  font-family: 'Poppins', system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+}
+.ShowCard:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 14px rgba(0,0,0,0.12);
 }

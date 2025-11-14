@@ -1,11 +1,7 @@
-import { useState } from 'react';
-
-export default function SearchBar({ onSearch }) {
-  const [query, setQuery] = useState('');
-
+export default function SearchBar({ value, onChange, onSearch }) {
   const handleSubmit = (e) => {
     e.preventDefault();
-    onSearch(query.trim());
+    onSearch(value.trim());
   };
 
   return (
@@ -14,8 +10,8 @@ export default function SearchBar({ onSearch }) {
         className="SearchInput"
         type="text"
         placeholder="Buscar series..."
-        value={query}
-        onChange={(e) => setQuery(e.target.value)}
+        value={value}
+        onChange={(e) => onChange(e.target.value)}
       />
       <button className="SearchButton" type="submit">Buscar</button>
     </form>

@@ -53,10 +53,23 @@ function App() {
   return (
     <div className="App">
       <header className="AppHeader">
-        <h1>TVMaze Finder</h1>
+        <button
+          className="Brand"
+          onClick={() => {
+            setSelected(null);
+            setQuery('');
+            setResults([]);
+            setError('');
+            setLoading(false);
+          }}
+        >
+          TVMaze Finder
+        </button>
       </header>
       <main className="AppMain">
         <SearchBar
+          value={query}
+          onChange={(v) => setQuery(v)}
           onSearch={async (q) => {
             setQuery(q);
             if (!q) {
@@ -92,11 +105,7 @@ function App() {
             onToggleFavorite={toggleFavorite}
           />
         )}
-        <Favorites
-          favorites={favorites}
-          results={results}
-          onToggleFavorite={toggleFavorite}
-        />
+        <Favorites favorites={favorites} onToggleFavorite={toggleFavorite} />
         <Modal
           isOpen={!!selected}
           onClose={() => setSelected(null)}
