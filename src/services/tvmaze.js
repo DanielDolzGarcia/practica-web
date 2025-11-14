@@ -6,3 +6,10 @@ export async function searchShows(query) {
   if (!res.ok) throw new Error(`HTTP ${res.status}`);
   return res.json();
 }
+
+export async function getShowById(id) {
+  const url = `${API_BASE}/shows/${id}`;
+  const res = await fetch(url);
+  if (!res.ok) throw new Error(`HTTP ${res.status}`);
+  return res.json();
+}
