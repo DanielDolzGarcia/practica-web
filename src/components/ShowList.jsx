@@ -14,21 +14,19 @@ export default function ShowList({ items, onSelect, favorites = [], onToggleFavo
             onClick={() => onSelect && onSelect(s)}
             tabIndex={0}
           >
+            <FavoriteButton
+              isFavorite={isFav}
+              onToggle={(e) => {
+                e.stopPropagation();
+                onToggleFavorite && onToggleFavorite(s.id);
+              }}
+            />
             {img ? (
               <img className="ShowThumb" src={img} alt={s.name} />
             ) : (
               <div className="ShowThumbPlaceholder">Sin imagen</div>
             )}
             <h3 className="ShowTitle">{s.name}</h3>
-            <div className="ShowActions">
-              <FavoriteButton
-                isFavorite={isFav}
-                onToggle={(e) => {
-                  e.stopPropagation();
-                  onToggleFavorite && onToggleFavorite(s.id);
-                }}
-              />
-            </div>
           </li>
         );
       })}

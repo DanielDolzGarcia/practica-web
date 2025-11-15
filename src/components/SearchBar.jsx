@@ -13,7 +13,10 @@ export default function SearchBar({ value, onChange, onSearch }) {
         value={value}
         onChange={(e) => onChange(e.target.value)}
       />
-      <button className="SearchButton" type="submit">Buscar</button>
+      <button className="SearchButton" type="submit">
+        <i className="fa-solid fa-magnifying-glass"></i>
+        Buscar
+      </button>
     </form>
   );
 }

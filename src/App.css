@@ -11,6 +11,27 @@
   box-shadow: 0 2px 8px rgba(0,0,0,0.25);
 }
 
+.HeaderBar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.HeaderBar .SearchBar {
+  width: 320px;
+}
+
+@media (max-width: 600px) {
+  .HeaderBar {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .HeaderBar .SearchBar {
+    width: 100%;
+  }
+}
+
 .Brand {
   font-size: 22px;
   margin: 0;
@@ -27,6 +48,85 @@
 
 .AppMain {
   padding: 16px;
+}
+
+.Hero {
+  margin: 16px 0 24px;
+}
+
+.HeroInner {
+  background: linear-gradient(90deg, #0b0f14, #111827);
+  border-radius: 16px;
+  padding: 20px;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 20px;
+  grid-template-areas: 'content' 'image';
+}
+
+@media (min-width: 768px) {
+  .HeroInner {
+    grid-template-columns: 1.2fr 1fr;
+    align-items: center;
+    grid-template-areas: 'image content';
+  }
+  .HeroImageWrap { justify-content: flex-start; }
+}
+
+.HeroContent { grid-area: content; }
+.HeroImageWrap { grid-area: image; }
+
+.HeroTitle {
+  font-size: 36px;
+  margin: 0 0 12px;
+  text-align: center;
+  color: #ffffff;
+}
+
+.HeroDesc {
+  color: #cbd5e1;
+}
+
+.HeroActions {
+  margin-top: 16px;
+  display: flex;
+  justify-content: center;
+}
+
+.HeroButton {
+  background: #ef4444;
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  padding: 12px 16px;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.HeroImageWrap {
+  display: flex;
+  justify-content: center;
+}
+
+.HeroImage {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 2 / 3;
+  object-fit: contain;
+  max-width: 360px;
+  border-radius: 12px;
+}
+
+.HeroImagePlaceholder {
+  width: 100%;
+  aspect-ratio: 2 / 3;
+  max-width: 360px;
+  background: #1f2937;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #9ca3af;
 }
 
 .SearchBar {
@@ -51,6 +151,9 @@
   color: #fff;
   cursor: pointer;
   font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
 }
 
 .SearchInfo {
@@ -102,6 +205,7 @@
   background: #fff;
   cursor: pointer;
   transition: transform 0.15s ease, box-shadow 0.15s ease;
+  position: relative;
 }
 
 .ShowThumb {
@@ -132,6 +236,7 @@
   font-size: 15px;
   margin: 10px 12px 12px;
   font-weight: 600;
+  text-align: center;
 }
 
 .SelectedInfo {
@@ -143,17 +248,35 @@
 }
 
 .FavButton {
-  border: none;
-  background: #eee;
-  padding: 8px 12px;
-  border-radius: 8px;
+  border: 1px solid #d1d5db;
+  background: rgba(243, 244, 246, 0.85);
+  padding: 4px;
+  border-radius: 999px;
   cursor: pointer;
-  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.12);
 }
 
 .FavButton.isFav {
-  background: #f59e0b;
-  color: #1f2937;
+  background: rgba(245, 158, 11, 0.15);
+}
+
+.ShowCard .FavButton {
+  position: absolute;
+  top: 4px;
+  right: 4px;
+  z-index: 2;
+}
+
+.FavButton i {
+  font-size: 14px;
+  color: #6b7280;
+}
+
+.FavButton.isFav i {
+  color: #f59e0b;
 }
 
 .Favorites {
@@ -163,6 +286,7 @@
 .FavoritesTitle {
   font-size: 16px;
   margin: 0 0 8px;
+  text-align: center;
 }
 
 .FavoritesEmpty {
@@ -260,6 +384,7 @@
 .ModalTitle {
   margin: 0;
   font-size: 18px;
+  text-align: center;
 }
 
 .CloseButton {

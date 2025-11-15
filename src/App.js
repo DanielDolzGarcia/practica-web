@@ -1,12 +1,13 @@
 import './App.css';
 import { useState, useEffect } from 'react';
 import SearchBar from './components/SearchBar';
-import { searchShows, getShowById } from './services/tvmaze';
+import { searchShows, getShowById, getRandomShow } from './services/tvmaze';
 import ShowList from './components/ShowList';
 import Modal from './components/Modal';
 import FavoriteButton from './components/FavoriteButton';
 import useLocalStorage from './hooks/useLocalStorage';
 import Favorites from './components/Favorites';
+import Hero from './components/Hero';
 
 function App() {
   const [query, setQuery] = useState('');
@@ -18,6 +19,8 @@ function App() {
   const [detailLoading, setDetailLoading] = useState(false);
   const [detailError, setDetailError] = useState('');
   const [favorites, setFavorites] = useLocalStorage('favorites', []);
+  const [hero, setHero] = useState(null);
+  const [heroLoading, setHeroLoading] = useState(false);
 
   const toggleFavorite = (id) => {
     setFavorites((prev) =>
@@ -50,45 +53,66 @@ function App() {
     };
   }, [selected]);
 
+  useEffect(() => {
+    if (query) {
+      setHero(null);
+      return;
+    }
+    setHeroLoading(true);
+    getRandomShow()
+      .then((d) => setHero(d))
+      .catch(() => setHero(null))
+      .finally(() => setHeroLoading(false));
+  }, [query]);
+
   return (
     <div className="App">
       <header className="AppHeader">
-        <button
-          className="Brand"
-          onClick={() => {
-            setSelected(null);
-            setQuery('');
-            setResults([]);
-            setError('');
-            setLoading(false);
-          }}
-        >
-          TVMaze
-        </button>
+        <div className="HeaderBar">
+          <button
+            className="Brand"
+            onClick={() => {
+              setSelected(null);
+              setQuery('');
+              setResults([]);
+              setError('');
+              setLoading(false);
+            }}
+          >
+            TVMaze
+          </button>
+          <SearchBar
+            value={query}
+            onChange={(v) => setQuery(v)}
+            onSearch={async (q) => {
+              setQuery(q);
+              if (!q) {
+                setResults([]);
+                return;
+              }
+              try {
+                setLoading(true);
+                setError('');
+                const data = await searchShows(q);
+                setResults(data);
+              } catch (e) {
+                setError('Error al buscar. Intenta de nuevo');
+                setResults([]);
+              } finally {
+                setLoading(false);
+              }
+            }}
+          />
+        </div>
       </header>
       <main className="AppMain">
-        <SearchBar
-          value={query}
-          onChange={(v) => setQuery(v)}
-          onSearch={async (q) => {
-            setQuery(q);
-            if (!q) {
-              setResults([]);
-              return;
-            }
-            try {
-              setLoading(true);
-              setError('');
-              const data = await searchShows(q);
-              setResults(data);
-            } catch (e) {
-              setError('Error al buscar. Intenta de nuevo');
-              setResults([]);
-            } finally {
-              setLoading(false);
-            }
-          }}
-        />
+        {!query && hero && (
+          <Hero
+            show={hero}
+            isFavorite={favorites.includes(hero.id)}
+            onToggleFavorite={() => toggleFavorite(hero.id)}
+          />
+        )}
         <p className="SearchInfo">
           {query ? `Buscando: ${query}` : 'Introduce un término y pulsa Buscar'}
         </p>

@@ -41,21 +41,19 @@ export default function Favorites({ favorites, onToggleFavorite, onSelect }) {
               onClick={() => onSelect && onSelect(s)}
               tabIndex={0}
             >
+              <FavoriteButton
+                isFavorite={true}
+                onToggle={(e) => {
+                  e.stopPropagation();
+                  onToggleFavorite && onToggleFavorite(s.id);
+                }}
+              />
               {s.image?.medium ? (
                 <img className="ShowThumb" src={s.image.medium} alt={s.name} />
               ) : (
                 <div className="ShowThumbPlaceholder">Sin imagen</div>
               )}
               <h3 className="ShowTitle">{s.name}</h3>
-              <div className="ShowActions">
-                <FavoriteButton
-                  isFavorite={true}
-                  onToggle={(e) => {
-                    e.stopPropagation();
-                    onToggleFavorite && onToggleFavorite(s.id);
-                  }}
-                />
-              </div>
             </li>
           ))}
         </ul>
