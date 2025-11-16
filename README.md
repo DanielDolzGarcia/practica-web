@@ -15,7 +15,7 @@ Aplicación de una sola página que consume el API público de TVMaze para mostr
 
 ## Desarrollo libre
 
-- Sección Hero en la página principal mostrando una serie aleatoria con título grande, descripción, imagen con proporción 2:3 y botón centrado para favoritos
+- Sección Hero en la página principal mostrando una serie aleatoria
 
 ## Ejecución
 
@@ -26,10 +26,10 @@ npm start
 
 ## Captura de la interfaz
 
-![Vista principal (Hero)](public/Captura de pantalla 2025-11-16 234920.png)
+![Vista principal (Hero)](public/Captura%20de%20pantalla%202025-11-16%20234920.png)
 
-![Resultados de búsqueda](public/Captura de pantalla 2025-11-16 235213.png)
+![Resultados de búsqueda](public/Captura%20de%20pantalla%202025-11-16%20235213.png)
 
-![Modal de detalle](public/Captura de pantalla 2025-11-16 235222.png)
+![Modal de detalle](public/Captura%20de%20pantalla%202025-11-16%20235222.png)
 
-![Favoritos en grid](public/Captura de pantalla 2025-11-16 235243.png)
+![Favoritos en grid](public/Captura%20de%20pantalla%202025-11-16%20235243.png)
