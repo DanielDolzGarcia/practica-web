@@ -79,6 +79,7 @@ function App() {
               setLoading(false);
             }}
           >
+            <i className="fa-solid fa-tv"></i>
             TVMaze
           </button>
           <SearchBar
@@ -114,13 +115,14 @@ function App() {
           />
         )}
         <p className="SearchInfo">
-          {query ? `Buscando: ${query}` : 'Introduce un término y pulsa Buscar'}
+          {loading
+            ? 'Buscando…'
+            : error
+            ? error
+            : query
+            ? `${results.length} resultados para ${query}`
+            : 'Introduce un término y pulsa Buscar'}
         </p>
-        {loading && <p>Buscando…</p>}
-        {error && <p>{error}</p>}
-        {!loading && !error && results.length > 0 && (
-          <p>Encontradas: {results.length} series</p>
-        )}
         {!loading && !error && results.length > 0 && (
           <ShowList
             items={results}
