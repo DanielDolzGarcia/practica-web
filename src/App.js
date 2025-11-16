@@ -114,15 +114,15 @@ function App() {
             onToggleFavorite={() => toggleFavorite(hero.id)}
           />
         )}
-        <p className="SearchInfo">
-          {loading
-            ? 'Buscando…'
-            : error
-            ? error
-            : query
-            ? `${results.length} resultados para ${query}`
-            : 'Introduce un término y pulsa Buscar'}
-        </p>
+        {(loading || error || query) && (
+          <p className="SearchInfo">
+            {loading
+              ? 'Buscando…'
+              : error
+              ? error
+              : `${results.length} resultados para ${query}`}
+          </p>
+        )}
         {!loading && !error && results.length > 0 && (
           <ShowList
             items={results}
